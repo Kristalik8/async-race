@@ -1,0 +1,47 @@
+.garage {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.garage li {
+  list-style-type: none;
+  border-bottom: 3px dashed white;
+  margin-bottom: 5px;
+}
+
+ul {
+  padding: 0;
+}
+
+.control-panel {
+  margin: 5px 0;
+  display: flex;
+  gap: 5px;
+}
+
+.race {
+  position: relative;
+}
+
+.car__model {
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 5px;
+  color: #e9911e;
+}
+
+.car-icon {
+  width: 80px;
+}
+
+.flag {
+  position: absolute;
+  right: 100px;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  background-image: url("../../assets/svg/flag.svg");
+  background-size: 100% 100%;
+  transform: scale(1.8);
+}

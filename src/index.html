@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Async-race</title>
+</head>
+
+<body>
+<div class="wrapper">
+  <header class="header">
+    <nav class="header__nav">
+      <button class="button btn-nav"> to garage
+      </button>
+      <button class="button btn-nav"> to winners
+      </button>
+    </nav>
+    <div class="header__logo"></div>
+  </header>
+  <main class="main">
+    <div class="container-forms">
+      <form class="form">
+        <input type="text" name="name" id="nameCare" class="input-text">
+        <input type="color" name="color" id="colorCareCreate">
+        <button class="button">Create</button>
+
+      </form>
+      <form class="form main__form-update inactive">
+        <input type="text" name="name" id="nameCareCreate" class="input-text">
+        <input type="color" name="color" id="colorCareUpdate">
+        <button class="button">Update</button>
+      </form>
+
+    </div>
+    <div class="race-control">
+      <button type="button" class="button button-big">Generate cars</button>
+      <button type="button" class="button">race</button>
+      <button type="button" class="button">reset</button>
+    </div>
+    <div class="garage">
+      <h1 class="title race__title">Garage</h1>
+      <h2 class="title">Page <span class="page-num">1</span></h2>
+      <ul class=garage">
+        <li class="car">
+          <div class="car__control">
+            <button class="button button__control">
+              <span>Select</span>
+            </button>
+            <button class="button button__control">
+              <span>Remove</span>
+            </button>
+            <span class="title car__model">Tesla</span>
+          </div>
+          <div class="race">
+            <div class="control-panel">
+              <button type="button" class="button btn-start"><span>Start</span></button>
+              <button type="button" class="button btn-stop" disabled>Stop</button>
+            </div>
+              <div class="car">
+                 <img class="car-icon" src="assets/svg/car.svg" alt="car">
+              </div>
+              <div class="flag">
+              </div>
+            </div>
+
+        </li>
+      </ul>
+      <div class="pagination">
+        <button type="button" class="button"><span>PREV</span></button>
+        <button type="button" class="button">NEXT</button>
+      </div>
+    </div>
+  </main>
+
+</div>
+</body>
+
+</html>
