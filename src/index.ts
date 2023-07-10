@@ -1,6 +1,0 @@
-import './index.scss'
-import './ts/dataCars'
-import './ts/api'
-import './ts/listener'
-import './ts/carSVG'
-import './ts/createRoad'
