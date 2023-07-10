@@ -21,17 +21,16 @@
   </header>
   <main class="main">
     <div class="container-forms">
-      <form class="form">
-        <input type="text" name="name" id="nameCare" class="input-text">
-        <input type="color" name="color" id="colorCareCreate">
-        <button class="button">Create</button>
-
-      </form>
-      <form class="form main__form-update inactive">
+      <div class="form" id="create">
+        <input type="text" name="name" id="nameCar" class="input-text">
+        <input type="color" name="color" id="colorCar">
+        <button class="button" id= "btn-create" type="submit">Create</button>
+      </div>
+      <div class="form">
         <input type="text" name="name" id="nameCareCreate" class="input-text">
         <input type="color" name="color" id="colorCareUpdate">
-        <button class="button">Update</button>
-      </form>
+        <button class="button" id= "btn-update">Update</button>
+      </div>
 
     </div>
     <div class="race-control">
@@ -39,29 +38,10 @@
       <button type="button" class="button">race</button>
       <button type="button" class="button">reset</button>
     </div>
-    <div class="garage">
+    <div class="garage-wrap">
       <h1 class="title race__title">Garage</h1>
       <h2 class="title">Page <span class="page-num">1</span></h2>
-      <ul class=garage">
-        <li class="car">
-          <div class="car__control">
-            <button class="button btn-select">Select</button>
-            <button class="button btn-remove">Remove</button>
-            <span class="title car__model">Tesla</span>
-          </div>
-          <div class="race">
-            <div class="control-panel">
-              <button type="button" class="button btn-start">Start</button>
-              <button type="button" class="button btn-stop" disabled>Stop</button>
-            </div>
-              <div class="car">
-                 <img class="car-icon" src="assets/svg/car.svg" alt="car">
-              </div>
-              <div class="flag">
-              </div>
-            </div>
-
-        </li>
+      <ul class="garage">
       </ul>
       <div class="pagination">
         <button type="button" class="button"><span>PREV</span></button>

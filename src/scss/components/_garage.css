@@ -1,4 +1,4 @@
-.garage {
+.garage, .garage-wrap {
   margin-bottom: 5px;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ ul {
   gap: 5px;
 }
 
-.race {
+.road {
   position: relative;
 }
 
