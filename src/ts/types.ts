@@ -1,7 +1,7 @@
 interface ICar {
     name: string;
     color: string;
-    id: number;
+    id?: number;
 }
 interface IGarage {
     items: ICar[];

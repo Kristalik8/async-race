@@ -1,6 +1,8 @@
-import { createCar, getAllCars} from "./api/api";
+import {garage, createCar, getAllCars} from "./api/api";
 import {additionData, generateGarage, arrRoads} from "./utils/createRoad";
 import {fillCurrentPage} from "./view/fillPage";
+import {counterMaxPage} from "./utils/counting";
+import {generateRandomCars} from "./utils/generateCars";
 
 const btnCreate = document.getElementById('btn-create');
 const btnUpdate = document.getElementById('btn-update');
@@ -8,21 +10,18 @@ const btnGenerate = document.getElementById("btn-generate");
 const btnNext = document.getElementById("btn-next");
 const btnPrev = document.getElementById("btn-prev");
 
-const numberPages = (): number => {
-    const count = arrRoads.length;
-    return Math.ceil(count/7);
-}
-let maxPage:number = 1;
 
 btnCreate.addEventListener('click', () => {
     let colorCar = (<HTMLInputElement>document.getElementById('colorCar')).value;
     let nameCar = (<HTMLInputElement>document.getElementById('nameCar')).value;
     additionData(nameCar, colorCar);
-    maxPage = numberPages();
+    counterMaxPage()();
+
     async function callCreateCar() {
         const car = await createCar({name: nameCar, color: colorCar});
         return car;
     }
+
     callCreateCar().catch((error) => {
         throw new Error(`${error}`)
     });
@@ -30,30 +29,39 @@ btnCreate.addEventListener('click', () => {
 
 
 btnUpdate.addEventListener('click', () => {
-    console.log(maxPage)
-    console.log(arrRoads.length)
+    console.log(counterMaxPage()())
+    console.log(arrRoads)
+    console.log(garage)
 })
 
 
 btnGenerate.addEventListener('click', () => {
-    async function callGenerate() {
-        const cars = await getAllCars();
-        await generateGarage(cars);
-        maxPage = numberPages();
+    const carsRandom = generateRandomCars();
+    async function generateCars() {
+        for (let i = 0; i < carsRandom.length; i++) {
+            await createCar({name: carsRandom[i].name, color: carsRandom[i].color});
+        }
+        await generateGarage(carsRandom);
+        counterMaxPage()();
     }
-   return callGenerate();
+
+    generateCars().catch((error) => {
+        throw new Error(`${error}`)
+    });
 
 })
 
 let pageCurrent = 1;
 const garageQuery = document.querySelector('.garage');
+const currentPage = document.querySelector('.page-num');
 
 btnNext.addEventListener('click', () => {
-    if (pageCurrent >= maxPage) {
+    if (pageCurrent >= counterMaxPage()()) {
         return
     }
     pageCurrent += 1;
     garageQuery.innerHTML = '';
+    currentPage.textContent = String(pageCurrent);
     fillCurrentPage(pageCurrent);
 })
 
@@ -63,7 +71,9 @@ btnPrev.addEventListener('click', () => {
     }
     pageCurrent -= 1;
     garageQuery.innerHTML = '';
+    currentPage.textContent = String(pageCurrent);
     fillCurrentPage(pageCurrent);
 })
+
 
 
