@@ -1,4 +1,4 @@
-import {createCar, getAllCars, getCurrentGarage} from "./api/api";
+import {createCar, getAllCars, updateCar} from "./api/api";
 import {additionData, generateGarage} from "./utils/createRoad";
 
 import {counterMaxPage, page, carID} from "./utils/counting";
@@ -29,15 +29,36 @@ btnCreate.addEventListener('click', () => {
 
 
 let updNameCar = (<HTMLInputElement>document.getElementById('updNameCar'))
+let updColorCar = (<HTMLInputElement>document.getElementById('updColorCar'))
+
+btnUpdate.addEventListener('click', () => {
+    if (carID.getId === -1) {
+        return;
+    }
+    const roadsQueryAll = document.querySelectorAll('.road');
+    roadsQueryAll[carID.getId - 1].querySelector('.car__model').innerHTML = updNameCar.value;
+    const svgCarQuery = roadsQueryAll[carID.getId - 1].querySelector('.car svg g');
+    svgCarQuery.setAttribute("fill", updColorCar.value);
+    updateCar(carID.getId, {name: updNameCar.value, color: updColorCar.value}).catch((err)=>console.log(err));
+    updColorCar.value= "#000000";
+    updNameCar.value = '';
+    carID.setId = -1;
+})
 
 export function clickRoad() {
     const roadsQuery = document.querySelector('.garage');
     const roadsQueryAll = roadsQuery.querySelectorAll('.road');
     roadsQueryAll.forEach((roadQuery, i) => {
         roadQuery.addEventListener('click', () => {
-            const carModel = roadQuery.querySelector('.car__model')
+            const carModel = roadQuery.querySelector('.car__model');
             carID.setId = Number(String(roadQuery.id).split('-')[1]);
+
+            const svgCarQuery = roadsQueryAll[carID.getId - 1].querySelector('.car svg g');
+            const fillValue = svgCarQuery.getAttribute("fill");
+            updColorCar.value = fillValue;
             updNameCar.value = carModel.textContent;
+
+            console.log(carID.getId)
         })
     })
 
@@ -47,13 +68,13 @@ export function clickRoad() {
 btnGenerate.addEventListener('click', async () => {
     const carsRandom = generateRandomCars();
 
-        for (let i = 0; i < carsRandom.length; i++) {
-            await createCar({name: carsRandom[i].name, color: carsRandom[i].color});
-            const cars = await getAllCars();
-            await generateGarage(cars);
-        }
+    for (let i = 0; i < carsRandom.length; i++) {
+        await createCar({name: carsRandom[i].name, color: carsRandom[i].color});
+        const cars = await getAllCars();
+        await generateGarage(cars);
+    }
 
-        await counterMaxPage()();
+    await counterMaxPage()();
 
 
 })
