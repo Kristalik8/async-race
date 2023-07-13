@@ -1,4 +1,4 @@
-import {ICar, IGarage} from "../types";
+import {ICar} from "../types";
 
 const baseUrl = 'http://localhost:3000';
 export const garage = `${baseUrl}/garage`;
@@ -7,31 +7,20 @@ const engine = `${baseUrl}/engine`;
 
 const getAllCars = async (): Promise<ICar[]> => {
     const res = await fetch(`${garage}`);
-    const items = await res.json();
-    return items;
+    return await res.json();
 };
 
-// const getAllCars = async (): Promise<{items: ICar[]}> => {
-//     const res = await fetch(`${garage}`);
-//     return {
-//         items: await res.json()
-//     };
-// };
 
-
-const getGarage = async (): Promise<IGarage> => {
-        const res = await fetch(`${garage}?_limit=7`);
-      return {
-        items: await res.json(),
-        count: Number(res.headers.get('X-Total-Count')),
-    };
+const getCurrentGarage = async (page:number): Promise<ICar[]> => {
+    const res = await fetch(`${garage}?_page=${page}&_limit=7`);
+    return await res.json()
 };
 
-// const getPage = async (): Promise<number> => {
-//     const res = await fetch(`${garage}?_limit=7`);
-//     const countHeaders = Number(res.headers.get('X-Total-Count'));
-//     return Math.ceil(countHeaders/7);
-// }
+const getPages = async (): Promise<number> => {
+    const res = await fetch(`${garage}?_limit=7`);
+    const countHeaders = Number(res.headers.get('X-Total-Count'));
+    return Math.ceil(countHeaders/7);
+}
 
 const getCar = async (id: number): Promise<ICar> => (await fetch(`${garage}/${id}`)).json();
 
@@ -44,10 +33,21 @@ const createCar = async (body: { name: string; color: string }) => {
         },
         body: JSON.stringify(body),
     });
-    const car = await response.json();
-    return car;
+    return await response.json();
+}
+
+
+const updateCar = async (id: number, body: { name: string; color: string }) => {
+    const response = await fetch(`${garage}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+    })
+    return await response.json();
 }
 
 
 
-export {getGarage, createCar, getAllCars};
+export {getCurrentGarage , createCar, getAllCars, updateCar, getPages};

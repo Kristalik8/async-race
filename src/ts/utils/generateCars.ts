@@ -3,7 +3,7 @@ import {brands, models} from "./dataCars";
 
 const randomName = () => {
     const model = models[Math.floor(Math.random() * models.length)];
-    const brand = brands[Math.floor(Math.random() * models.length)];
+    const brand = brands[Math.floor(Math.random() * brands.length)];
     return `${brand} ${model}`;
 };
 const randomColor = () => {

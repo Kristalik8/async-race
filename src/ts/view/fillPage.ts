@@ -1,20 +1,28 @@
-import {arrRoads, generateGarage} from "../utils/createRoad";
-import {getAllCars} from "../api/api";
+import {generateGarage} from "../utils/createRoad";
+import {getAllCars, getCurrentGarage} from "../api/api";
 import {counterMaxPage} from "../utils/counting";
-const garageQuery = document.querySelector('.garage');
-export function fillCurrentPage(nextNum: number) {
-    for (let i = 7 * nextNum - 7; i < 7 * nextNum; i++) {
-        if(arrRoads[i]) {
-            garageQuery.append(arrRoads[i]);
-        }
-    }
+import {clickRoad} from "../listeners";
+import {page} from "../utils/counting";
+
+async function fillCurrentPage() {
+    const garageQuery = document.querySelector('.garage');
+    const currentPage = document.querySelector('.page-num');
+    garageQuery.innerHTML = '';
+    currentPage.textContent = String(page.number);
+    const currentGarage = await getCurrentGarage(page.number);
+    generateGarage(currentGarage);
+    clickRoad();
 }
 
 async function callGetAllCars() {
     const cars = await getAllCars();
     await generateGarage(cars);
-    counterMaxPage()();
+    await counterMaxPage()();
+    clickRoad();
 }
+
 callGetAllCars().catch((error) => {
     throw new Error(`${error}`)
 });
+
+export {fillCurrentPage, page}

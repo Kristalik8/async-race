@@ -1,16 +1,15 @@
 import {createCarImage} from "./carSVG";
-import {garage, getGarage} from "../api/api";
 import {ICar} from "../types";
 
-let arrRoads: Element[] = [];
 
-const createRoad = (name: string, color: string): HTMLLIElement => {
+const createRoad = (name: string, color: string, id:string): HTMLLIElement => {
     const roadElement = document.createElement('li');
     roadElement.className = 'road';
-  const roadString = ` <div class="car__control">
+    roadElement.setAttribute('id', `road-${id}`);
+    roadElement.innerHTML = ` <div class="car__control">
             <button class="button btn-select">Select</button>
             <button class="button btn-remove">Remove</button>
-            <span class="title car__model">${name}</span>
+            <span class="car__model">${name}</span>
           </div>
           <div class="race">
             <div class="control-panel">
@@ -23,18 +22,15 @@ const createRoad = (name: string, color: string): HTMLLIElement => {
               <div class="flag">
               </div>
             </div>`;
-
-    roadElement.innerHTML = roadString;
-    arrRoads.push(roadElement);
     return roadElement;
 }
 
 
-function additionData(name:string, color:string) {
+function additionData(name: string, color: string, id:string) {
     const garage = document.querySelector('.garage');
-    const roadsAmount = garage.querySelectorAll('.road').length;
-    const road = createRoad(name, color);
+    const roadsAmount = document.querySelectorAll('.road').length;
     if (roadsAmount < 7) {
+        const road = createRoad(name, color, id);
         garage.append(road);
     }
 
@@ -42,10 +38,9 @@ function additionData(name:string, color:string) {
 
 const generateGarage = (arrItems: ICar[]) => {
     for (let i = 0; i < arrItems.length; i++) {
-        additionData(arrItems[i].name, arrItems[i].color);
+        additionData(arrItems[i].name, arrItems[i].color, arrItems[i].id);
     }
 }
 
 
-
-export {createRoad, generateGarage, additionData, arrRoads}
+export {createRoad, generateGarage, additionData}
