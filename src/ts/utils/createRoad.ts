@@ -2,10 +2,9 @@ import {createCarImage} from "./carSVG";
 import {ICar} from "../types";
 
 
-const createRoad = (name: string, color: string, id:string): HTMLLIElement => {
+const createRoad = (name: string, color: string): HTMLLIElement => {
     const roadElement = document.createElement('li');
     roadElement.className = 'road';
-    roadElement.setAttribute('id', `road-${id}`);
     roadElement.innerHTML = ` <div class="car__control">
             <button class="button btn-select">Select</button>
             <button class="button btn-remove">Remove</button>
@@ -26,19 +25,23 @@ const createRoad = (name: string, color: string, id:string): HTMLLIElement => {
 }
 
 
-function additionData(name: string, color: string, id:string) {
-    const garage = document.querySelector('.garage');
-    const roadsAmount = document.querySelectorAll('.road').length;
+function additionData(name: string, color: string) {
+    const garageQuery = document.querySelector('.garage');
+    const roadsQuery = document.querySelectorAll('.road');
+    const roadsAmount = roadsQuery.length;
     if (roadsAmount < 7) {
-        const road = createRoad(name, color, id);
-        garage.append(road);
+        const road = createRoad(name, color);
+        garageQuery.append(road);
     }
 
 }
 
 const generateGarage = (arrItems: ICar[]) => {
     for (let i = 0; i < arrItems.length; i++) {
-        additionData(arrItems[i].name, arrItems[i].color, arrItems[i].id);
+        if (i > 7) {
+            return
+        }
+        additionData(arrItems[i].name, arrItems[i].color);
     }
 }
 

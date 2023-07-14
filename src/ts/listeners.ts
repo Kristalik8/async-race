@@ -1,7 +1,6 @@
-import {createCar, getAllCars, updateCar} from "./api/api";
-import {additionData, generateGarage} from "./utils/createRoad";
-
-import {counterMaxPage, page, carID} from "./utils/counting";
+import {createCar, updateCar} from "./api/api";
+import {additionData} from "./utils/createRoad";
+import {counterMaxPage, index, page} from "./utils/counting";
 import {generateRandomCars} from "./utils/generateCars";
 import {fillCurrentPage} from "./view/fillPage";
 
@@ -14,7 +13,7 @@ const btnPrev = document.getElementById("btn-prev");
 btnCreate.addEventListener('click', () => {
     let getColorCar = (<HTMLInputElement>document.getElementById('colorCar')).value;
     let getNameCar = (<HTMLInputElement>document.getElementById('nameCar')).value;
-    additionData(getNameCar, getColorCar, 'q');
+    additionData(getNameCar, getColorCar);
     counterMaxPage()();
     console.log(typeof getColorCar)
 
@@ -32,17 +31,20 @@ let updNameCar = (<HTMLInputElement>document.getElementById('updNameCar'))
 let updColorCar = (<HTMLInputElement>document.getElementById('updColorCar'))
 
 btnUpdate.addEventListener('click', () => {
-    if (carID.getId === -1) {
+    if (index.current === -1) {
         return;
     }
     const roadsQueryAll = document.querySelectorAll('.road');
-    roadsQueryAll[carID.getId - 1].querySelector('.car__model').innerHTML = updNameCar.value;
-    const svgCarQuery = roadsQueryAll[carID.getId - 1].querySelector('.car svg g');
+    let id = (index.current + 1) + 7 * (page.number - 1)
+    const modelCarQuery = roadsQueryAll[index.current].querySelector('.car__model');
+    const svgCarQuery = roadsQueryAll[index.current].querySelector('.car svg g');
+
+    modelCarQuery.innerHTML = updNameCar.value;
     svgCarQuery.setAttribute("fill", updColorCar.value);
-    updateCar(carID.getId, {name: updNameCar.value, color: updColorCar.value}).catch((err)=>console.log(err));
-    updColorCar.value= "#000000";
+    updateCar(id, {name: updNameCar.value, color: updColorCar.value}).catch((err) => console.log(err));
+    updColorCar.value = "#000000";
     updNameCar.value = '';
-    carID.setId = -1;
+    index.current = -1;
 })
 
 export function clickRoad() {
@@ -51,14 +53,10 @@ export function clickRoad() {
     roadsQueryAll.forEach((roadQuery, i) => {
         roadQuery.addEventListener('click', () => {
             const carModel = roadQuery.querySelector('.car__model');
-            carID.setId = Number(String(roadQuery.id).split('-')[1]);
-
-            const svgCarQuery = roadsQueryAll[carID.getId - 1].querySelector('.car svg g');
-            const fillValue = svgCarQuery.getAttribute("fill");
-            updColorCar.value = fillValue;
+            index.current = i;
+            const svgCarQuery = roadQuery.querySelector('.car svg g');
+            updColorCar.value = svgCarQuery.getAttribute("fill");
             updNameCar.value = carModel.textContent;
-
-            console.log(carID.getId)
         })
     })
 
@@ -70,13 +68,9 @@ btnGenerate.addEventListener('click', async () => {
 
     for (let i = 0; i < carsRandom.length; i++) {
         await createCar({name: carsRandom[i].name, color: carsRandom[i].color});
-        const cars = await getAllCars();
-        await generateGarage(cars);
+        await additionData(carsRandom[i].name, carsRandom[i].color)
     }
-
     await counterMaxPage()();
-
-
 })
 
 

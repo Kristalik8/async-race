@@ -22,15 +22,15 @@ const page = {
     }
 };
 
-const carID = {
-    _id: -1,
+const index = {
+    _index: -1,
 
-    get getId() {
-        return this._id;
+    get current() {
+        return this._index;
     },
-    set setId(value: number) {
-        this._id = value;
+    set current(value: number) {
+        this._index = value;
     }
 };
 
-export {carID, page, counterMaxPage}
+export {page, counterMaxPage, index}
