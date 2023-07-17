@@ -1,4 +1,4 @@
-import {createCar, updateCar} from "./api/api";
+import {createCar, deleteCar, updateCar} from "./api/api";
 import {additionData} from "./utils/createRoad";
 import {counterMaxPage, index, page} from "./utils/counting";
 import {generateRandomCars} from "./utils/generateCars";
@@ -35,7 +35,7 @@ btnUpdate.addEventListener('click', () => {
         return;
     }
     const roadsQueryAll = document.querySelectorAll('.road');
-    let id = (index.current + 1) + 7 * (page.number - 1)
+    let id = (index.current + 1) + 7 * (page.number - 1);
     const modelCarQuery = roadsQueryAll[index.current].querySelector('.car__model');
     const svgCarQuery = roadsQueryAll[index.current].querySelector('.car svg g');
 
@@ -52,11 +52,18 @@ export function clickRoad() {
     const roadsQueryAll = roadsQuery.querySelectorAll('.road');
     roadsQueryAll.forEach((roadQuery, i) => {
         roadQuery.addEventListener('click', () => {
-            const carModel = roadQuery.querySelector('.car__model');
             index.current = i;
-            const svgCarQuery = roadQuery.querySelector('.car svg g');
-            updColorCar.value = svgCarQuery.getAttribute("fill");
-            updNameCar.value = carModel.textContent;
+            if (roadQuery.querySelector('.btn-select')) {
+                const carModel = roadQuery.querySelector('.car__model');
+                const svgCarQuery = roadQuery.querySelector('.car svg g');
+                updColorCar.value = svgCarQuery.getAttribute("fill");
+                updNameCar.value = carModel.textContent;
+            }
+            if (roadQuery.querySelector('.btn-remove')) {
+                let id = (index.current + 1) + 7 * (page.number - 1);
+                deleteCar(id).catch((err) => console.log(err));
+                roadQuery.remove();
+            }
         })
     })
 

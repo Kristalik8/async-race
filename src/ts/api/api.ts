@@ -24,6 +24,12 @@ const getPages = async (): Promise<number> => {
 
 const getCar = async (id: number): Promise<ICar> => (await fetch(`${garage}/${id}`)).json();
 
+const deleteCar = async (id: number) =>
+    (
+        await fetch(`${garage}/${id}`, {
+            method: 'DELETE',
+        })
+    ).json();
 
 const createCar = async (body: { name: string; color: string }) => {
     const response = await fetch(`${garage}`, {
@@ -50,4 +56,4 @@ const updateCar = async (id: number, body: { name: string; color: string }) => {
 
 
 
-export {getCurrentGarage , createCar, getAllCars, updateCar, getPages};
+export {getCurrentGarage , createCar, getAllCars, updateCar, getPages, deleteCar};
