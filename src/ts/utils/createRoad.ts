@@ -39,7 +39,7 @@ function additionData(name: string, color: string) {
 const generateGarage = (arrItems: ICar[]) => {
     for (let i = 0; i < arrItems.length; i++) {
         if (i > 7) {
-            return
+            return;
         }
         additionData(arrItems[i].name, arrItems[i].color);
     }

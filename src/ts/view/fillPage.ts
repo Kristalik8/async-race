@@ -1,6 +1,6 @@
 import {generateGarage} from "../utils/createRoad";
 import {getAllCars, getCurrentGarage} from "../api/api";
-import {counterMaxPage} from "../utils/counting";
+import {counterMaxPage, carsCount} from "../utils/counting";
 import {clickRoad} from "../listeners";
 import {page} from "../utils/counting";
 
@@ -18,6 +18,7 @@ async function callGetAllCars() {
     const cars = await getAllCars();
     await generateGarage(cars);
     await counterMaxPage()();
+    carsCount(cars.length);
     clickRoad();
 }
 

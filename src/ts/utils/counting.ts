@@ -1,8 +1,7 @@
-import {getPages} from "../api/api";
-
+import {getAllCars, getPages} from "../api/api";
 
 function counterMaxPage() {
-    let maxPage:number = 1;
+    let maxPage: number = 1;
 
     return async () => {
         maxPage = await getPages();
@@ -33,4 +32,11 @@ const index = {
     }
 };
 
-export {page, counterMaxPage, index}
+function carsCount(n: number) {
+    const carsAmountQuery = document.getElementById("cars-amount");
+    let numCarsNow = Number(carsAmountQuery.textContent);
+    let newNumCars= numCarsNow + n;
+    return carsAmountQuery.innerHTML = String(newNumCars);
+}
+
+export {page, counterMaxPage, index, carsCount}

@@ -1,6 +1,6 @@
-import {createCar, deleteCar, updateCar} from "./api/api";
+import {createCar, deleteCar, getAllCars, updateCar} from "./api/api";
 import {additionData} from "./utils/createRoad";
-import {counterMaxPage, index, page} from "./utils/counting";
+import {counterMaxPage, index, page, carsCount} from "./utils/counting";
 import {generateRandomCars} from "./utils/generateCars";
 import {fillCurrentPage} from "./view/fillPage";
 
@@ -10,20 +10,15 @@ const btnGenerate = document.getElementById("btn-generate");
 const btnNext = document.getElementById("btn-next");
 const btnPrev = document.getElementById("btn-prev");
 
-btnCreate.addEventListener('click', () => {
+
+
+btnCreate.addEventListener('click', async () => {
     let getColorCar = (<HTMLInputElement>document.getElementById('colorCar')).value;
     let getNameCar = (<HTMLInputElement>document.getElementById('nameCar')).value;
     additionData(getNameCar, getColorCar);
-    counterMaxPage()();
-    console.log(typeof getColorCar)
-
-    async function callCreateCar() {
-        return await createCar({name: getNameCar, color: getColorCar});
-    }
-
-    callCreateCar().catch((error) => {
-        throw new Error(`${error}`)
-    });
+    await counterMaxPage()();
+    await createCar({name: getNameCar, color: getColorCar});
+    carsCount(1);
 })
 
 
@@ -72,7 +67,7 @@ export function clickRoad() {
 
 btnGenerate.addEventListener('click', async () => {
     const carsRandom = generateRandomCars();
-
+    carsCount(100);
     for (let i = 0; i < carsRandom.length; i++) {
         await createCar({name: carsRandom[i].name, color: carsRandom[i].color});
         await additionData(carsRandom[i].name, carsRandom[i].color)
