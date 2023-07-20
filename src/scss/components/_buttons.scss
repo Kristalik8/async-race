@@ -1,5 +1,4 @@
 .button {
-  cursor: pointer;
   background: #fff;
   font-size: 16px;
   padding: 0 5px;
@@ -18,9 +17,12 @@
 }
 
 
-.button:hover {
+.button:not([disabled]):hover {
+  cursor: pointer;
   color: #c21a1a;
 }
+
+
 
 .button:hover::before {
   left: 0;
