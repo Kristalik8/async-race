@@ -78,4 +78,27 @@ export const getWinners = async (
   };
 };
 
-export { getCurrentGarage, createCar, getAllCars, updateCar, getPages, deleteCar, velocityCar, brokeEngine };
+
+const createWinner = async (body: { id:number, wins: number; time: number; }) => {
+  const response = await fetch(`${winners}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response.json();
+};
+
+const updateWinner = async (id: number, body: {wins: number; time: number;}) => {
+  const response = await fetch(`${winners}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response.json();
+};
+
+export { getCurrentGarage, createCar, getAllCars, updateCar, getPages, deleteCar, velocityCar, brokeEngine, createWinner, updateWinner };

@@ -6,6 +6,7 @@ export async function fillCurrentWinners() {
   const tbody = document.querySelector('table tbody');
   tbody.innerHTML = '';
   const { items, count } = await getWinners(winners.page, winners.sortBy, winners.sortOrder);
+  console.log(items)
   winners.count = count;
   const trElems = `${items
     .map(

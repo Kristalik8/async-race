@@ -15,4 +15,19 @@ interface IWinnerItem {
   car: ICar;
 }
 
-export { ICar, IGarage, IWinnerItem };
+interface Results {
+  [id: number]: number;
+}
+
+interface Winners {
+  pageNumber: number;
+  count: number;
+  sortBy: string;
+  sortOrder: string;
+  save: object[];
+  race: Results;
+  page: number;
+}
+
+
+export { ICar, IGarage, IWinnerItem, Results, Winners };

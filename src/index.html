@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Async-race</title>
+  <title>Async-stateRace</title>
 </head>
 
 <body>
@@ -35,6 +35,8 @@
       <tbody>
       </tbody>
     </table>
+      <button type="button" class="button" id="btn-winners-prev"><span>PREV</span></button>
+      <button type="button" class="button" id="btn-winners-next">NEXT</button>
   </div>
   <main class="main">
     <div class="container-forms">
@@ -56,8 +58,8 @@
     </div>
     <div class="race-control">
       <button type="button" class="button" id="btn-generate">Generate cars</button>
-      <button type="button" class="button">RACE</button>
-      <button type="button" class="button" disabled>RESET</button>
+      <button type="button" class="button" id="race">RACE</button>
+      <button type="button" class="button" id="reset" disabled>RESET</button>
     </div>
     <div class="garage-wrap">
       <h1 class="garage__title">Garage <span id="cars-amount"></span></h1>

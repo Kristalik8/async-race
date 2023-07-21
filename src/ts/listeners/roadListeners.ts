@@ -1,9 +1,11 @@
 import { deleteCar } from '../api/api';
 import { index, carsCount } from '../utils/counting';
-import { startCar, carStop } from '../stateMotion/stateCar';
+import { startCar, stopCar } from '../stateMotion/stateCar';
+import {fillCurrentPage} from "../view/fillPage";
 
 const updNameCar = <HTMLInputElement>document.getElementById('updNameCar');
 const updColorCar = <HTMLInputElement>document.getElementById('updColorCar');
+import {clickRace} from "../utils/counting";
 document.querySelector('.garage').addEventListener('click', (e) => {
   const targetElem = <HTMLElement>e.target;
   const roadElem = targetElem.closest('.road');
@@ -11,9 +13,6 @@ document.querySelector('.garage').addEventListener('click', (e) => {
   if (!roadElem) {
     return;
   }
-  const startBtn = <HTMLButtonElement>roadElem.querySelector('.btn-start');
-  const stopBtn = <HTMLButtonElement>roadElem.querySelector('.btn-stop');
-  const car = <HTMLElement>roadElem.querySelector('.car');
   if (targetElem.closest('.btn-select')) {
     index.current = idValue;
     const carModel = roadElem.querySelector('.car__model');
@@ -23,13 +22,14 @@ document.querySelector('.garage').addEventListener('click', (e) => {
   }
   if (targetElem.closest('.btn-remove')) {
     deleteCar(idValue).catch((err) => console.log(err));
-    roadElem.remove();
+    fillCurrentPage();
     carsCount(-1);
   }
   if (targetElem.closest('.btn-start')) {
-    startCar(car, startBtn, stopBtn, idValue);
+    clickRace.bool = false;
+    startCar(idValue);
   }
   if (targetElem.closest('.btn-stop')) {
-    carStop(car, startBtn, stopBtn);
+    stopCar(idValue);
   }
 });
