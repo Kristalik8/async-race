@@ -1,4 +1,4 @@
-import { createCarImage } from './carSVG';
+import { createCarImage } from '../utils/carSVG';
 import { ICar } from '../types';
 
 const createRoad = (name: string, color: string, id: string): HTMLLIElement => {
@@ -32,8 +32,11 @@ function additionData(name: string, color: string, id: string) {
 }
 
 const generateGarage = (arrItems: ICar[]) => {
+  const garageQuery = document.querySelector('.garage');
   for (let i = 0; i < arrItems.length; i += 1) {
-    additionData(arrItems[i].name, arrItems[i].color, arrItems[i].id);
+    // additionData(arrItems[i].name, arrItems[i].color, arrItems[i].id);
+    const road = createRoad(arrItems[i].name, arrItems[i].color, arrItems[i].id);
+    garageQuery.append(road);
   }
 };
 

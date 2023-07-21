@@ -1,4 +1,4 @@
-import { generateGarage } from '../utils/createRoad';
+import { generateGarage } from './createRoad';
 import { getAllCars, getCurrentGarage } from '../api/api';
 import { counterMaxPage, carsCount, page } from '../utils/counting';
 

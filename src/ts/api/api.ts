@@ -1,4 +1,4 @@
-import { ICar } from '../types';
+import { ICar, IWinnerItem } from '../types';
 
 const baseUrl = 'http://localhost:3000';
 export const garage = `${baseUrl}/garage`;
@@ -61,6 +61,21 @@ const velocityCar = async (id: number): Promise<number> => {
 const brokeEngine = async (id: number): Promise<boolean> => {
   const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' });
   return res.status === 500;
+};
+
+const winnersSort = (sort?: string, order?: string) => (sort && order ? `&_sort=${sort}&_order=${order}` : '');
+
+export const getWinners = async (
+  page: number,
+  sort?: string,
+  order?: string
+): Promise<{ items: IWinnerItem[]; count: number }> => {
+  const res = await fetch(`${winners}?_page=${page}&_limit=10&${winnersSort(sort, order)}`);
+  const items = await res.json();
+  return {
+    items: await Promise.all(items.map(async (winner: IWinnerItem) => ({ ...winner, car: await getCar(winner.id) }))),
+    count: Number(res.headers.get('X-Total-Count')),
+  };
 };
 
 export { getCurrentGarage, createCar, getAllCars, updateCar, getPages, deleteCar, velocityCar, brokeEngine };

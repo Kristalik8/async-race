@@ -1,8 +1,11 @@
 import '../index.scss';
 import './utils/dataCars';
 import './api/api';
-import './listeners';
 import './utils/carSVG';
-import './utils/createRoad';
+import './view/createRoad';
 import './view/fillPage';
 import './utils/generateCars';
+import './lesteners/pageListeners';
+import './lesteners/roadListeners';
+import './lesteners/winnersListeners';
+import './view/fillWinners';

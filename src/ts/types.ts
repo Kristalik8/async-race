@@ -8,4 +8,11 @@ interface IGarage {
   count: number;
 }
 
-export { ICar, IGarage };
+interface IWinnerItem {
+  id: number;
+  wins: number;
+  time: number;
+  car: ICar;
+}
+
+export { ICar, IGarage, IWinnerItem };

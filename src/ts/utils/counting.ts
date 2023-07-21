@@ -20,6 +20,20 @@ const page = {
   },
 };
 
+const winners = {
+  pageNumber: 1,
+  count: 0,
+  sortBy: '',
+  sortOrder: '',
+  save: [] as object[],
+  get page() {
+    return this.pageNumber;
+  },
+  set page(value) {
+    this.pageNumber = value;
+  },
+};
+
 const index = {
   indexNumber: -1,
 
@@ -38,4 +52,4 @@ function carsCount(n: number): string {
   return (carsAmountQuery.innerHTML = String(newNumCars));
 }
 
-export { page, counterMaxPage, index, carsCount };
+export { page, counterMaxPage, index, carsCount, winners };

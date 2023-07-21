@@ -10,6 +10,14 @@
   margin-bottom: 5px;
 }
 
+.garage__title {
+  margin: 50px 0 0;
+}
+
+.garage__page {
+  margin: 20px 0;
+}
+
 ul {
   padding: 0;
 }
@@ -24,11 +32,10 @@ ul {
   position: relative;
 }
 
-.car__model {
-  font-weight: 500;
-  font-size: 20px;
+.car__name {
+  font-weight: 700;
   margin-left: 5px;
-  color: #e9911e;
+  font-size: 20px;
 }
 
 .car-icon {

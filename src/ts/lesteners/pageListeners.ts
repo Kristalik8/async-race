@@ -1,15 +1,25 @@
-import { createCar, deleteCar, getAllCars, updateCar } from './api/api';
-import { generateGarage } from './utils/createRoad';
-import { counterMaxPage, index, page, carsCount } from './utils/counting';
-import { generateRandomCars } from './utils/generateCars';
-import { fillCurrentPage } from './view/fillPage';
-import { startCar, carStop } from './stateMotion/stateCar';
-
+import { carsCount, counterMaxPage, index, page } from '../utils/counting';
+import { createCar, updateCar } from '../api/api';
+import { fillCurrentPage } from '../view/fillPage';
+import { generateRandomCars } from '../utils/generateCars';
+import { fillCurrentWinners } from '../view/fillWinners';
 const btnCreate = document.getElementById('btn-create');
 const btnUpdate = document.getElementById('btn-update');
 const btnGenerate = document.getElementById('btn-generate');
 const btnNext = document.getElementById('btn-next');
 const btnPrev = document.getElementById('btn-prev');
+const btnToGarage = <HTMLButtonElement>document.getElementById('btn-to-garage');
+const btnToWinners = <HTMLButtonElement>document.getElementById('btn-to-winners');
+const mainQuery = document.querySelector('.main');
+const winnersQuery = document.querySelector('.winners');
+
+btnToWinners.addEventListener('click', () => {
+  btnToWinners.disabled = true;
+  btnToGarage.disabled = false;
+  mainQuery.classList.add('hidden');
+  winnersQuery.classList.remove('hidden');
+  fillCurrentWinners();
+});
 
 btnCreate.addEventListener('click', async () => {
   const getColorCar = (<HTMLInputElement>document.getElementById('colorCar')).value;
@@ -38,36 +48,6 @@ btnUpdate.addEventListener('click', () => {
   updColorCar.value = '#000000';
   updNameCar.value = '';
   index.current = -1;
-});
-
-document.querySelector('.garage').addEventListener('click', (e) => {
-  const targetElem = <HTMLElement>e.target;
-  const roadElem = targetElem.closest('.road');
-  const idValue = Number(roadElem.id.split('-')[1]);
-  if (!roadElem) {
-    return;
-  }
-  const startBtn = <HTMLButtonElement>roadElem.querySelector('.btn-start');
-  const stopBtn = <HTMLButtonElement>roadElem.querySelector('.btn-stop');
-  const car = <HTMLElement>roadElem.querySelector('.car');
-  if (targetElem.closest('.btn-select')) {
-    index.current = idValue;
-    const carModel = roadElem.querySelector('.car__model');
-    const svgCarQuery = roadElem.querySelector('.car svg g');
-    updColorCar.value = svgCarQuery.getAttribute('fill');
-    updNameCar.value = carModel.textContent;
-  }
-  if (targetElem.closest('.btn-remove')) {
-    deleteCar(idValue).catch((err) => console.log(err));
-    roadElem.remove();
-    carsCount(-1);
-  }
-  if (targetElem.closest('.btn-start')) {
-    startCar(car, startBtn, stopBtn, idValue);
-  }
-  if (targetElem.closest('.btn-stop')) {
-    carStop(car, startBtn, stopBtn);
-  }
 });
 
 btnGenerate.addEventListener('click', async () => {

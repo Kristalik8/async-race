@@ -19,18 +19,14 @@ body {
   padding: 0 10px;
 }
 
-.garage__title {
-  margin: 50px 0 0;
-}
-
-.garage__page {
-  margin: 20px 0;
-}
-
 .container-forms {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   margin-bottom: 15px;
+}
+
+.hidden{
+  display: none;
 }
 

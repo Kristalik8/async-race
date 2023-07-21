@@ -1,7 +1,6 @@
 import { velocityCar, brokeEngine } from '../api/api';
 let animationFrameId: number;
-async function startCar(car: HTMLElement, startBtn: HTMLButtonElement, stopBtn: HTMLButtonElement, id: number)
-{
+async function startCar(car: HTMLElement, startBtn: HTMLButtonElement, stopBtn: HTMLButtonElement, id: number) {
   let currentX = car.offsetLeft;
   let velocity = await velocityCar(id);
   const screenWidth = window.innerWidth;
@@ -31,6 +30,5 @@ function carStop(car: HTMLElement, startBtn: HTMLButtonElement, stopBtn: HTMLBut
   cancelAnimationFrame(animationFrameId);
   car.style.transform = 'translateX(0)';
 }
-
 
 export { startCar, carStop };
