@@ -1,12 +1,12 @@
-import { getWinners } from '../api/api';
+import { getWinnersOnPage } from '../api/api';
 import { createCarImage } from '../utils/carSVG';
 import { winners } from '../utils/counting';
 
 export async function fillCurrentWinners() {
   const tbody = document.querySelector('table tbody');
   tbody.innerHTML = '';
-  const { items, count } = await getWinners(winners.page, winners.sortBy, winners.sortOrder);
-  console.log(items)
+  const { items, count } = await getWinnersOnPage(winners.page, winners.sortBy, winners.sortOrder);
+  console.log(items);
   winners.count = count;
   const trElems = `${items
     .map(

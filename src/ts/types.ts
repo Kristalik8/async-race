@@ -16,7 +16,10 @@ interface IWinnerItem {
 }
 
 interface Results {
-  [id: number]: number;
+  [id: string]: number;
+}
+interface IObjResults {
+  [id: number]: Results;
 }
 
 interface Winners {
@@ -29,5 +32,10 @@ interface Winners {
   page: number;
 }
 
+interface IWinner {
+  id: number;
+  wins: number;
+  time: number;
+}
 
-export { ICar, IGarage, IWinnerItem, Results, Winners };
+export { ICar, IGarage, IWinnerItem, Results, Winners, IObjResults, IWinner };

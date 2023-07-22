@@ -26,6 +26,20 @@ body {
   margin-bottom: 15px;
 }
 
+.message-winner {
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  font-family: "Arial Narrow", sans-serif;
+  letter-spacing: 2px;
+  font-size: 30px;
+  color: #171717;
+  text-shadow: 0 -1px 4px #000, 0 -5px 8px #f80850, 0 -5px 8px #f8081c, 0 18px 40px #8d3c3c;
+}
+
 .hidden{
   display: none;
 }

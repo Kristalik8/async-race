@@ -1,4 +1,4 @@
-import { ICar, IWinnerItem } from '../types';
+import { ICar, IWinnerItem, IWinner } from '../types';
 
 const baseUrl = 'http://localhost:3000';
 export const garage = `${baseUrl}/garage`;
@@ -59,13 +59,18 @@ const velocityCar = async (id: number): Promise<number> => {
 };
 
 const brokeEngine = async (id: number): Promise<boolean> => {
-  const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' });
+  const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' }).catch();
   return res.status === 500;
 };
 
 const winnersSort = (sort?: string, order?: string) => (sort && order ? `&_sort=${sort}&_order=${order}` : '');
 
-export const getWinners = async (
+const getAllWinners = async (): Promise<IWinner[]> => {
+  const res = await fetch(`${winners}`);
+  return res.json();
+};
+
+const getWinnersOnPage = async (
   page: number,
   sort?: string,
   order?: string
@@ -78,8 +83,7 @@ export const getWinners = async (
   };
 };
 
-
-const createWinner = async (body: { id:number, wins: number; time: number; }) => {
+const createWinner = async (body: IWinner) => {
   const response = await fetch(`${winners}`, {
     method: 'POST',
     headers: {
@@ -90,7 +94,7 @@ const createWinner = async (body: { id:number, wins: number; time: number; }) =>
   return response.json();
 };
 
-const updateWinner = async (id: number, body: {wins: number; time: number;}) => {
+const updateWinner = async (id: number, body: { wins: number; time: number }) => {
   const response = await fetch(`${winners}/${id}`, {
     method: 'PUT',
     headers: {
@@ -101,4 +105,27 @@ const updateWinner = async (id: number, body: {wins: number; time: number;}) => 
   return response.json();
 };
 
-export { getCurrentGarage, createCar, getAllCars, updateCar, getPages, deleteCar, velocityCar, brokeEngine, createWinner, updateWinner };
+const deleteWinner = async (id: number) =>
+  (
+    await fetch(`${winners}/${id}`, {
+      method: 'DELETE',
+    })
+  ).json();
+
+export const getWinner = async (id: number): Promise<IWinner> => (await fetch(`${winners}/${id}`)).json();
+
+export {
+  getCurrentGarage,
+  createCar,
+  getAllCars,
+  updateCar,
+  getPages,
+  deleteCar,
+  velocityCar,
+  brokeEngine,
+  createWinner,
+  updateWinner,
+  deleteWinner,
+  getWinnersOnPage,
+  getAllWinners,
+};
