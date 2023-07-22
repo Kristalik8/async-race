@@ -1,4 +1,4 @@
-import { winners } from '../utils/counting';
+import { winners, clickWinnerPage } from '../utils/counting';
 import { fillCurrentWinners } from '../view/fillWinners';
 
 const btnToGarage = <HTMLButtonElement>document.getElementById('btn-to-garage');
@@ -10,6 +10,7 @@ const sortWins = document.getElementById('sort-wins');
 const sortTime = document.getElementById('sort-time');
 
 btnToGarage.addEventListener('click', () => {
+  clickWinnerPage.bool = false;
   btnToWinners.disabled = false;
   btnToGarage.disabled = true;
   mainQuery.classList.remove('hidden');
@@ -30,5 +31,23 @@ sortWins.onclick = async () => {
 sortTime.onclick = async () => {
   winners.sortBy = 'time';
   setSortCars();
+  await fillCurrentWinners();
+};
+
+document.getElementById('btn-winners-next').onclick = async () => {
+  if (winners.page >= winners.maxPage) {
+    return;
+  }
+  winners.page += 1;
+  clickWinnerPage.bool = true;
+  await fillCurrentWinners();
+};
+
+document.getElementById('btn-winners-prev').onclick = async () => {
+  if (winners.page <= 1) {
+    return;
+  }
+  winners.page -= 1;
+  clickWinnerPage.bool = true;
   await fillCurrentWinners();
 };

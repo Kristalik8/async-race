@@ -1,6 +1,6 @@
 import { startCar, stopCar } from './stateCar';
 import { addWinner } from '../utils/addWinner';
-import {clearAnimation, clickRace} from "../utils/counting";
+import { clearAnimation, clickRace } from '../utils/counting';
 
 async function race() {
   clickRace.bool = true;

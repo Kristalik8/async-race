@@ -19,4 +19,4 @@ async function callCarsCount() {
 fillCurrentPage();
 callCarsCount();
 
-export { fillCurrentPage, page };
+export { fillCurrentPage };

@@ -1,12 +1,13 @@
-import { getWinnersOnPage } from '../api/api';
+import { getWinnersOnPage, getAllWinners } from '../api/api';
 import { createCarImage } from '../utils/carSVG';
-import { winners } from '../utils/counting';
+import { winners, clickWinnerPage } from '../utils/counting';
+const winnersPageElem = document.querySelector('.winners__page-num');
 
 export async function fillCurrentWinners() {
+  winnersPageElem.textContent = `${winners.page}`;
   const tbody = document.querySelector('table tbody');
   tbody.innerHTML = '';
-  const { items, count } = await getWinnersOnPage(winners.page, winners.sortBy, winners.sortOrder);
-  winners.count = count;
+  const { items } = await getWinnersOnPage(winners.page, winners.sortBy, winners.sortOrder);
   const trElems = `${items
     .map(
       (winner, index) => `
@@ -21,4 +22,9 @@ export async function fillCurrentWinners() {
     )
     .join(' ')}`;
   tbody.insertAdjacentHTML('beforeend', trElems);
+  if (!clickWinnerPage.bool) {
+    console.log('1');
+    const allWinners = await getAllWinners();
+    winners.maxPage = Math.ceil(allWinners.length / 10);
+  }
 }

@@ -43,6 +43,9 @@ btnUpdate.addEventListener('click', () => {
   }
   const nameCarQuery = <HTMLElement>document.querySelector(`#road-${index.current} .car__name`);
   const svgCarQuery = <HTMLElement>document.querySelector(`#road-${index.current} .car svg g`);
+  if (!nameCarQuery) {
+    return;
+  }
   nameCarQuery.innerHTML = updNameCar.value;
   svgCarQuery.setAttribute('fill', updColorCar.value);
   updateCar(index.current, { name: updNameCar.value, color: updColorCar.value }).catch((err) => console.log(err));

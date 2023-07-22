@@ -1,5 +1,5 @@
 import { getPages } from '../api/api';
-import {IObjResults, Winners} from '../types';
+import { IObjResults, Winners } from '../types';
 function counterMaxPage() {
   let maxPage = 1;
 
@@ -35,12 +35,22 @@ const clickRace = {
   },
   set bool(value) {
     this.click = value;
-  }
-}
+  },
+};
+
+const clickWinnerPage = {
+  click: false,
+  get bool() {
+    return this.click;
+  },
+  set bool(value) {
+    this.click = value;
+  },
+};
 
 const winners: Winners = {
   pageNumber: 1,
-  count: 0,
+  maxPage: 1,
   sortBy: '',
   sortOrder: '',
   save: [],
@@ -71,4 +81,4 @@ function carsCount(n: number): string {
   return (carsAmountQuery.innerHTML = String(newNumCars));
 }
 
-export { page, counterMaxPage, index, carsCount, winners, animation, clickRace};
+export { page, counterMaxPage, index, carsCount, winners, animation, clickRace, clickWinnerPage };
