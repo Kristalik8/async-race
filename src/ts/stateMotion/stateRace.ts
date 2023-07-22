@@ -1,7 +1,10 @@
 import { startCar, stopCar } from './stateCar';
 import { addWinner } from '../utils/addWinner';
+import {clearAnimation, clickRace} from "../utils/counting";
 
 async function race() {
+  clickRace.bool = true;
+  clearAnimation();
   const targetPosition = window.innerWidth - 110;
   const cars = document.querySelectorAll('.car');
   const carIds = Array.from(cars).map((car) => Number(car.closest('.road').id.split('-')[1]));
@@ -30,7 +33,11 @@ async function race() {
   requestAnimationFrame(checkPositions);
 }
 
+const btnRace = <HTMLButtonElement>document.getElementById('race');
+const btnReset = <HTMLButtonElement>document.getElementById('reset');
 async function reset() {
+  btnRace.disabled = false;
+  btnReset.disabled = true;
   const messageWinner = document.querySelector('.message-winner');
   messageWinner.classList.add('hidden');
   const cars = document.querySelectorAll('.car');

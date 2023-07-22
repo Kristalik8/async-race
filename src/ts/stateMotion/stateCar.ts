@@ -1,12 +1,10 @@
 import { brokeEngine, velocityCar } from '../api/api';
-import { IObjResults, Results } from '../types';
-
-const animation: IObjResults = {};
+import { Results } from '../types';
+import { animation } from '../utils/counting';
 
 async function startCar(id: number) {
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
   const stopBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-stop`);
-
   startBtn.disabled = true;
   stopBtn.disabled = false;
   let velocity = await velocityCar(id);
@@ -14,17 +12,16 @@ async function startCar(id: number) {
   function animate() {
     const state: Results = {};
     const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
-
     const screenWidth = window.innerWidth;
     const end = screenWidth - 110;
-
     let currentX = car.offsetLeft;
     velocity = velocity / 40;
-    if (window.innerWidth < 700) {
-      velocity -= 1;
-      console.log(velocity, id);
+    if (window.innerWidth < 880 && window.innerWidth >= 600) {
+      velocity = velocity / 2;
     }
-
+    if (window.innerWidth < 600) {
+      velocity = velocity / 3;
+    }
     async function interval() {
       currentX += velocity;
       car.style.transform = `translateX(${Math.min(currentX, end)}px)`;

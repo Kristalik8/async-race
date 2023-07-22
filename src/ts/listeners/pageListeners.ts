@@ -1,6 +1,6 @@
-import { carsCount, counterMaxPage, index, page } from '../utils/counting';
+import { carsCount, clickRace, counterMaxPage, index, page } from '../utils/counting';
 import { createCar, updateCar } from '../api/api';
-import { fillCurrentPage } from '../view/fillPage';
+import { fillCurrentPage } from '../view/fillGarage';
 import { generateRandomCars } from '../utils/generateCars';
 import { fillCurrentWinners } from '../view/fillWinners';
 import { race, reset } from '../stateMotion/stateRace';
@@ -41,14 +41,11 @@ btnUpdate.addEventListener('click', () => {
   if (index.current === -1) {
     return;
   }
-  const roadsQueryAll = document.querySelectorAll('.road');
-  const id = index.current + 1 + 7 * (page.number - 1);
-  const modelCarQuery = roadsQueryAll[index.current].querySelector('.car__model');
-  const svgCarQuery = roadsQueryAll[index.current].querySelector('.car svg g');
-
-  modelCarQuery.innerHTML = updNameCar.value;
+  const nameCarQuery = <HTMLElement>document.querySelector(`#road-${index.current} .car__name`);
+  const svgCarQuery = <HTMLElement>document.querySelector(`#road-${index.current} .car svg g`);
+  nameCarQuery.innerHTML = updNameCar.value;
   svgCarQuery.setAttribute('fill', updColorCar.value);
-  updateCar(id, { name: updNameCar.value, color: updColorCar.value }).catch((err) => console.log(err));
+  updateCar(index.current, { name: updNameCar.value, color: updColorCar.value }).catch((err) => console.log(err));
   updColorCar.value = '#000000';
   updNameCar.value = '';
   index.current = -1;
@@ -68,7 +65,10 @@ btnNext.addEventListener('click', async () => {
   if (page.number >= (await maxPagePromise)) {
     return;
   }
-  btnPrev.disabled = false;
+  if (clickRace.bool) {
+    clickRace.bool = false;
+    reset();
+  }
   page.number += 1;
   await fillCurrentPage();
 });
@@ -77,7 +77,10 @@ btnPrev.addEventListener('click', async () => {
   if (page.number <= 1) {
     return;
   }
-
+  if (clickRace.bool) {
+    clickRace.bool = false;
+    reset();
+  }
   page.number -= 1;
   await fillCurrentPage();
 });
@@ -90,6 +93,4 @@ btnRace.onclick = async () => {
 
 btnReset.onclick = async () => {
   reset();
-  btnRace.disabled = false;
-  btnReset.disabled = true;
 };

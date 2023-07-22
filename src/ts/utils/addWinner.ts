@@ -17,7 +17,6 @@ export async function addWinner(timeStart: number, id: number, roadElement: Elem
       updateWinner(id, { wins: newContWins, time: bestTime });
     }
   });
-
   if (!foundId) {
     await createWinner({ id: id, wins: 1, time: timeFirstWin });
   }

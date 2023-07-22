@@ -1,7 +1,8 @@
 import { deleteCar, deleteWinner, getWinner } from '../api/api';
-import { index, carsCount } from '../utils/counting';
+import { index, carsCount, clickRace } from '../utils/counting';
 import { startCar, stopCar } from '../stateMotion/stateCar';
-import { fillCurrentPage } from '../view/fillPage';
+import { fillCurrentPage } from '../view/fillGarage';
+import { clearAnimation } from '../utils/counting';
 
 const updNameCar = <HTMLInputElement>document.getElementById('updNameCar');
 const updColorCar = <HTMLInputElement>document.getElementById('updColorCar');
@@ -14,7 +15,7 @@ document.querySelector('.garage').addEventListener('click', async (e) => {
   }
   if (targetElem.closest('.btn-select')) {
     index.current = idValue;
-    const carModel = roadElem.querySelector('.car__model');
+    const carModel = roadElem.querySelector('.car__name');
     const svgCarQuery = roadElem.querySelector('.car svg g');
     updColorCar.value = svgCarQuery.getAttribute('fill');
     updNameCar.value = carModel.textContent;
@@ -29,6 +30,8 @@ document.querySelector('.garage').addEventListener('click', async (e) => {
     carsCount(-1);
   }
   if (targetElem.closest('.btn-start')) {
+    clickRace.bool = false;
+    clearAnimation();
     startCar(idValue);
   }
   if (targetElem.closest('.btn-stop')) {

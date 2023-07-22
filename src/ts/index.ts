@@ -3,7 +3,7 @@ import './utils/dataCars';
 import './api/api';
 import './utils/carSVG';
 import './view/createRoad';
-import './view/fillPage';
+import './view/fillGarage';
 import './utils/generateCars';
 import './listeners/pageListeners';
 import './listeners/roadListeners';

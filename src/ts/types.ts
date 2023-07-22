@@ -18,13 +18,14 @@ interface IWinnerItem {
 interface Results {
   [id: string]: number;
 }
+
 interface IObjResults {
   [id: number]: Results;
 }
 
 interface Winners {
   pageNumber: number;
-  count: number;
+  maxPage: number;
   sortBy: string;
   sortOrder: string;
   save: object[];
