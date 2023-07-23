@@ -1,7 +1,7 @@
 const body = document.querySelector('body');
 
 function fillPage() {
-    const strPage = `
+  const strPage = `
 <div class="wrapper">
   <header class="header">
     <nav class="header__nav">
@@ -69,7 +69,7 @@ function fillPage() {
 
 
   </main>
-</div>`
-    body.insertAdjacentHTML('beforeend', strPage);
+</div>`;
+  body.insertAdjacentHTML('beforeend', strPage);
 }
-fillPage()
+fillPage();

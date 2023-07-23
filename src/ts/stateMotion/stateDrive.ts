@@ -1,61 +1,69 @@
-import {brokeEngine, velocityCar} from '../api/api';
-import {Results} from '../types';
-import {animation} from '../utils/counting';
+import { brokeEngine, velocityCar } from '../api/api';
+import { Results } from '../types';
+import { animation, clickRace, containerTimesRace } from '../utils/counting';
 
 async function startCar(id: number) {
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
   const stopBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-stop`);
+  const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
   startBtn.disabled = true;
-  stopBtn.disabled = false;
   let velocity = await velocityCar(id);
+  const timeStart = new Date().getTime();
 
   function animate() {
     const state: Results = {};
-    const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
     const screenWidth = window.innerWidth;
     const end = screenWidth - 110;
     let currentX = car.offsetLeft;
-    if (screenWidth >= 1000) {
-      velocity = Number((velocity / 34).toFixed(2));
+    velocity = Number((velocity / 10).toFixed(2));
+    if (screenWidth >= 1400 && screenWidth < 2500) {
+      velocity = Number((velocity / 2).toFixed(2));
     }
-    if (screenWidth >= 800 &&screenWidth < 1000) {
-      velocity = Number((velocity / 52).toFixed(2));
+    if (screenWidth >= 800 && screenWidth < 1400) {
+      velocity = Number((velocity / 3).toFixed(2));
     }
-    if (screenWidth >= 670 && screenWidth < 800) {
-      velocity = Number((velocity / 37/2).toFixed(2));
+    if (screenWidth >= 650 && screenWidth < 800) {
+      velocity = Number((velocity / 4).toFixed(2));
     }
-    if (screenWidth < 670) {
-      velocity = Number((velocity /40/3).toFixed(2));
+    if (screenWidth < 650) {
+      velocity = Number((velocity / 5).toFixed(2));
     }
     async function interval() {
       currentX += velocity;
       car.style.transform = `translateX(${Math.min(currentX, end)}px)`;
       if (currentX < end) {
         state.id = window.requestAnimationFrame(interval);
+      } else {
+        if (clickRace.bool) {
+          const timeEnd = new Date().getTime();
+          containerTimesRace[id] = Number(((timeEnd - timeStart) / 1000).toFixed(2));
+        }
       }
     }
 
     state.id = window.requestAnimationFrame(interval);
     return state;
   }
-
   animation[id] = animate();
-
-  return await brokeEngine(id).then((r) => {
-    if (r) {
-      cancelAnimationFrame(animation[id].id);
+  const stateEngine = brokeEngine(id).then((r) => {
+    if (r && animation[id]) {
+        cancelAnimationFrame(animation[id].id);
     }
     return r;
   });
+  stopBtn.disabled = false;
+  return { stateEngine, id };
 }
 
 async function stopCar(id: number) {
   const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
   const stopBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-stop`);
-  stopBtn.disabled = true;
   startBtn.disabled = false;
-  cancelAnimationFrame(animation[id].id);
+  if (animation[id]) {
+    cancelAnimationFrame(animation[id].id);
+  }
+  stopBtn.disabled = true;
   car.style.transform = 'translateX(0)';
 }
 

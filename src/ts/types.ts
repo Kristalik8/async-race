@@ -28,8 +28,6 @@ interface Winners {
   maxPage: number;
   sortBy: string;
   sortOrder: string;
-  save: object[];
-  race: Results;
   page: number;
 }
 

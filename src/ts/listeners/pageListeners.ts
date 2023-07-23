@@ -63,14 +63,19 @@ btnGenerate.addEventListener('click', async () => {
   await fillCurrentPage();
 });
 
+async function forReset() {
+  btnReset.disabled = true;
+  await reset();
+  btnRace.disabled = false;
+}
+
 btnNext.addEventListener('click', async () => {
   const maxPagePromise = counterMaxPage()();
   if (page.number >= (await maxPagePromise)) {
     return;
   }
   if (clickRace.bool) {
-    clickRace.bool = false;
-    reset();
+    await forReset();
   }
   page.number += 1;
   await fillCurrentPage();
@@ -81,8 +86,7 @@ btnPrev.addEventListener('click', async () => {
     return;
   }
   if (clickRace.bool) {
-    clickRace.bool = false;
-    reset();
+    await forReset();
   }
   page.number -= 1;
   await fillCurrentPage();
@@ -95,5 +99,5 @@ btnRace.onclick = async () => {
 };
 
 btnReset.onclick = async () => {
-  reset();
+  await forReset();
 };

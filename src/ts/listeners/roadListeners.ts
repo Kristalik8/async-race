@@ -1,8 +1,7 @@
 import { deleteCar, deleteWinner, getWinner } from '../api/api';
-import { index, carsCount, clickRace } from '../utils/counting';
-import { startCar, stopCar } from '../stateMotion/stateCar';
+import { index, carsCount, clearAnimation } from '../utils/counting';
+import { startCar, stopCar } from '../stateMotion/stateDrive';
 import { fillCurrentPage } from '../view/fillGarage';
-import { clearAnimation } from '../utils/counting';
 
 const updNameCar = <HTMLInputElement>document.getElementById('updNameCar');
 const updColorCar = <HTMLInputElement>document.getElementById('updColorCar');
@@ -30,11 +29,10 @@ document.querySelector('.garage').addEventListener('click', async (e) => {
     carsCount(-1);
   }
   if (targetElem.closest('.btn-start')) {
-    clickRace.bool = false;
     clearAnimation();
-    startCar(idValue);
+    await startCar(idValue);
   }
   if (targetElem.closest('.btn-stop')) {
-    stopCar(idValue);
+    await stopCar(idValue);
   }
 });

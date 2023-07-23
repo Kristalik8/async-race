@@ -23,7 +23,6 @@ export async function fillCurrentWinners() {
     .join(' ')}`;
   tbody.insertAdjacentHTML('beforeend', trElems);
   if (!clickWinnerPage.bool) {
-    console.log('1');
     const allWinners = await getAllWinners();
     winners.maxPage = Math.ceil(allWinners.length / 10);
   }
