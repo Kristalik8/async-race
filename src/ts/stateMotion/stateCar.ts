@@ -1,6 +1,6 @@
-import { brokeEngine, velocityCar } from '../api/api';
-import { Results } from '../types';
-import { animation } from '../utils/counting';
+import {brokeEngine, velocityCar} from '../api/api';
+import {Results} from '../types';
+import {animation} from '../utils/counting';
 
 async function startCar(id: number) {
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
@@ -41,13 +41,12 @@ async function startCar(id: number) {
 
   animation[id] = animate();
 
-  const broke = await brokeEngine(id).then((r) => {
+  return await brokeEngine(id).then((r) => {
     if (r) {
       cancelAnimationFrame(animation[id].id);
     }
     return r;
   });
-  return { id, broke };
 }
 
 async function stopCar(id: number) {

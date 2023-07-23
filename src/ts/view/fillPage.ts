@@ -1,7 +1,6 @@
 const body = document.querySelector('body');
 
 function fillPage() {
-    console.log('1')
     const strPage = `
 <div class="wrapper">
   <header class="header">
