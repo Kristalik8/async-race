@@ -6,6 +6,7 @@ async function race() {
   clickRace.bool = true;
   clearAnimation();
   const targetPosition = window.innerWidth - 110;
+  console.log(targetPosition)
   const cars = document.querySelectorAll('.car');
   const carIds = Array.from(cars).map((car) => Number(car.closest('.road').id.split('-')[1]));
   const promises = carIds.map((id) => startCar(id));

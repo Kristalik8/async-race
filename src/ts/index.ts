@@ -1,3 +1,4 @@
+import './view/fillPage'
 import '../index.scss';
 import './utils/dataCars';
 import './api/api';

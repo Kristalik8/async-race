@@ -15,12 +15,17 @@ async function startCar(id: number) {
     const screenWidth = window.innerWidth;
     const end = screenWidth - 110;
     let currentX = car.offsetLeft;
-    velocity = velocity / 40;
-    if (window.innerWidth < 880 && window.innerWidth >= 600) {
-      velocity = velocity / 2;
+    if (screenWidth >= 1000) {
+      velocity = Number((velocity / 34).toFixed(2));
     }
-    if (window.innerWidth < 600) {
-      velocity = velocity / 3;
+    if (screenWidth >= 800 &&screenWidth < 1000) {
+      velocity = Number((velocity / 52).toFixed(2));
+    }
+    if (screenWidth >= 670 && screenWidth < 800) {
+      velocity = Number((velocity / 37/2).toFixed(2));
+    }
+    if (screenWidth < 670) {
+      velocity = Number((velocity /40/3).toFixed(2));
     }
     async function interval() {
       currentX += velocity;
@@ -38,7 +43,6 @@ async function startCar(id: number) {
 
   const broke = await brokeEngine(id).then((r) => {
     if (r) {
-      console.log(id);
       cancelAnimationFrame(animation[id].id);
     }
     return r;
