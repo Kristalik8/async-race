@@ -1,4 +1,4 @@
-import { startCar, stopCar} from "./stateDrive";
+import { startCar, stopCar } from './stateDrive';
 import { addWinner } from '../utils/addWinner';
 import { clearAnimation, clickRace } from '../utils/counting';
 

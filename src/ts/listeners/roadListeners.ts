@@ -14,10 +14,10 @@ document.querySelector('.garage').addEventListener('click', async (e) => {
   }
   if (targetElem.closest('.btn-select')) {
     index.current = idValue;
-    const carModel = roadElem.querySelector('.car__name');
+    const carName = roadElem.querySelector('.car__name');
     const svgCarQuery = roadElem.querySelector('.car svg g');
     updColorCar.value = svgCarQuery.getAttribute('fill');
-    updNameCar.value = carModel.textContent;
+    updNameCar.value = carName.textContent;
   }
   if (targetElem.closest('.btn-remove')) {
     await deleteCar(idValue);
