@@ -31,14 +31,12 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-right: -50%;
   transform: translate(-50%, -50%);
-  font-family: "Arial Narrow", sans-serif;
-  letter-spacing: 2px;
   font-size: 30px;
-  color: #ff0015;
+  background-color: white;
+  color: #ff0026;
   font-weight: 800;
-  text-shadow: 0 -1px 4px #000000, 0 -5px 8px #000000, 0 -5px 8px #111111, 0 18px 40px #090808;
+  padding: 18px;
 }
 
 .hidden{
