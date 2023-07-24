@@ -1,26 +1,31 @@
 import { brokeEngine, velocityCar } from '../api/api';
-import { Results } from '../types';
+import { ResultsNumber, ResultsBoolean } from '../types';
 import { animation, clickRace, containerTimesRace } from '../utils/counting';
 
-let clickStop = false;
+const clickStop: ResultsBoolean = {};
 
 function brokeMessage(id: number) {
-  const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
-  const roadE = <HTMLElement>car.closest('.road');
+  const roadE = <HTMLElement>document.querySelector(`#road-${id}`);
   const carName = roadE.querySelector('.car__name').textContent;
   const messageBrokeQuery = roadE.querySelector('.message-broke');
-  if (clickStop) {
-    clickStop = false;
-    roadE.style.backgroundColor = '';
-    messageBrokeQuery.classList.add('hidden');
-  } else {
-    roadE.style.backgroundColor = 'rgba(212, 3, 3, 0.24)';
-    messageBrokeQuery.classList.remove('hidden');
-    messageBrokeQuery.textContent = `${carName} engine was broken down`;
-  }
+  const add = () => {
+    if (!clickStop[id]) {
+      roadE.style.backgroundColor = 'rgba(212, 3, 3, 0.24)';
+      messageBrokeQuery.classList.remove('hidden');
+      messageBrokeQuery.textContent = `${carName} engine was broken down`;
+    }
+  };
+  const hid = () => {
+    if (roadE.style.backgroundColor === 'rgba(212, 3, 3, 0.24)') {
+      roadE.style.backgroundColor = '';
+      messageBrokeQuery.classList.add('hidden');
+    }
+  };
+  return { add, hid };
 }
 
 async function startCar(id: number) {
+  clickStop[id] = false;
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
   const stopBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-stop`);
   const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
@@ -29,7 +34,7 @@ async function startCar(id: number) {
   const timeStart = new Date().getTime();
 
   function animate() {
-    const state: Results = {};
+    const state: ResultsNumber = {};
     const screenWidth = window.innerWidth;
     const end = screenWidth - 110;
     let currentX = car.offsetLeft;
@@ -66,7 +71,7 @@ async function startCar(id: number) {
   const stateEngine = brokeEngine(id).then((r) => {
     if (r && animation[id]) {
       cancelAnimationFrame(animation[id].id);
-      brokeMessage(id);
+      brokeMessage(id).add();
     }
     return r;
   });
@@ -75,8 +80,8 @@ async function startCar(id: number) {
 }
 
 async function stopCar(id: number) {
-  clickStop = true;
-  brokeMessage(id);
+  clickStop[id] = true;
+  brokeMessage(id).hid();
   const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
   const stopBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-stop`);

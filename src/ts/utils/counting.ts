@@ -1,5 +1,6 @@
 import { getPages } from '../api/api';
-import { IObjResults, Results, Winners } from '../types';
+import { IObjResults, ResultsNumber, Winners } from '../types';
+
 function counterMaxPage() {
   let maxPage = 1;
 
@@ -22,13 +23,7 @@ const page = {
 
 const animation: IObjResults = {};
 
-export function clearAnimation() {
-  for (const key in animation) {
-    delete animation[key];
-  }
-}
-
-const containerTimesRace: Results = {};
+const containerTimesRace: ResultsNumber = {};
 
 const clickRace = {
   click: false,

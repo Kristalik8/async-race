@@ -13,7 +13,7 @@ export async function addWinner(id: number, roadElement: Element) {
     if (id === item.id) {
       foundId = true;
       const newContWins = item.wins + 1;
-      const bestTime = timeWin > item.time ? timeWin : item.time;
+      const bestTime = timeWin < item.time ? timeWin : item.time;
       updateWinner(id, { wins: newContWins, time: bestTime });
     }
   });

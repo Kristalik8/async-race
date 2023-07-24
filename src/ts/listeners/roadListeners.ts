@@ -1,5 +1,5 @@
 import { deleteCar, deleteWinner, getWinner } from '../api/api';
-import { index, carsCount, clearAnimation } from '../utils/counting';
+import { index, carsCount } from '../utils/counting';
 import { startCar, stopCar } from '../stateMotion/stateDrive';
 import { fillCurrentPage } from '../view/fillGarage';
 
@@ -29,7 +29,6 @@ document.querySelector('.garage').addEventListener('click', async (e) => {
     carsCount(-1);
   }
   if (targetElem.closest('.btn-start')) {
-    clearAnimation();
     await startCar(idValue);
   }
   if (targetElem.closest('.btn-stop')) {

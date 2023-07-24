@@ -3,10 +3,6 @@ interface ICar {
   color: string;
   id: string;
 }
-interface IGarage {
-  items: ICar[];
-  count: number;
-}
 
 interface IWinnerItem {
   id: number;
@@ -15,12 +11,16 @@ interface IWinnerItem {
   car: ICar;
 }
 
-interface Results {
+interface ResultsNumber {
   [id: string]: number;
 }
 
+interface ResultsBoolean {
+  [id: number]: boolean;
+}
+
 interface IObjResults {
-  [id: number]: Results;
+  [id: number]: ResultsNumber;
 }
 
 interface Winners {
@@ -37,4 +37,4 @@ interface IWinner {
   time: number;
 }
 
-export { ICar, IGarage, IWinnerItem, Results, Winners, IObjResults, IWinner };
+export { ICar, ResultsBoolean, IWinnerItem, ResultsNumber, Winners, IObjResults, IWinner };

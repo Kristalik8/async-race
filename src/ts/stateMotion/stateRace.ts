@@ -1,6 +1,6 @@
 import { startCar, stopCar } from './stateDrive';
 import { addWinner } from '../utils/addWinner';
-import { clearAnimation, clickRace } from '../utils/counting';
+import { clickRace } from '../utils/counting';
 
 let animationRace: number;
 
@@ -13,7 +13,6 @@ async function race() {
   clearAnimationRace();
   animationRace = 0;
   const arrWinnersEngineBroke: number[] = [];
-  clearAnimation();
   const targetPosition = window.innerWidth - 110;
   const cars = document.querySelectorAll('.car');
   const carIds = Array.from(cars).map((car) => Number(car.closest('.road').id.split('-')[1]));
@@ -23,11 +22,12 @@ async function race() {
     let idWinner = null;
     let winnerEngineBroke = false;
     for (let i = 0; i < cars.length; i++) {
+      if (arrWinnersEngineBroke.length === cars.length) {
+        clearAnimationRace();
+        return;
+      }
       if (arrWinnersEngineBroke.includes(i)) {
         continue;
-      }
-      if (arrWinnersEngineBroke.length === 7) {
-        clearAnimationRace();
       }
       const car = <HTMLElement>cars[i];
       const transformStyle = car.style.transform;
@@ -41,7 +41,7 @@ async function race() {
           arrWinnersEngineBroke.push(i);
           animationRace = requestAnimationFrame(checkPositions);
         }
-        if (!winnerEngineBroke) {
+        if (!winnerEngineBroke && clickRace.bool) {
           await addWinner(idWinner, roadE);
           break;
         }
