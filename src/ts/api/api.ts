@@ -58,6 +58,9 @@ const velocityCar = async (id: number): Promise<number> => {
   return velocity;
 };
 
+const getStopCar = async (id: number) =>
+    (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
+
 const brokeEngine = async (id: number): Promise<boolean> => {
   const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' }).catch();
   return res.status === 500;
@@ -120,6 +123,7 @@ export {
   getAllCars,
   updateCar,
   getPages,
+  getStopCar,
   deleteCar,
   velocityCar,
   brokeEngine,

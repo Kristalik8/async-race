@@ -1,4 +1,4 @@
-import { brokeEngine, velocityCar } from '../api/api';
+import { brokeEngine, velocityCar, getStopCar } from '../api/api';
 import { ResultsNumber, ResultsBoolean } from '../types';
 import { animation, clickRace, containerTimesRace } from '../utils/counting';
 
@@ -81,6 +81,7 @@ async function startCar(id: number) {
 
 async function stopCar(id: number) {
   clickStop[id] = true;
+  await getStopCar(id);
   brokeMessage(id).hid();
   const car = <HTMLElement>document.querySelector(`#road-${id} .car`);
   const startBtn = <HTMLButtonElement>document.querySelector(`#road-${id} .btn-start`);
