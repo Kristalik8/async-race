@@ -1,4 +1,4 @@
-import { getPages } from '../api/api';
+import { getPages} from '../api/api';
 import { IObjResults, ResultsNumber, Winners } from '../types';
 
 function counterMaxPage() {
@@ -70,10 +70,11 @@ const index = {
 };
 
 function carsCount(n: number): string {
-  const carsAmountQuery = document.getElementById('cars-amount');
-  const numCarsNow = Number(carsAmountQuery.textContent);
+  const carsAmountElem = document.getElementById('cars-amount');
+  const numCarsNow = Number(carsAmountElem.textContent);
   const newNumCars = numCarsNow + n;
-  return (carsAmountQuery.innerHTML = String(newNumCars));
+  return (carsAmountElem.innerHTML = String(newNumCars));
 }
+
 
 export { page, counterMaxPage, index, carsCount, winners, animation, clickRace, clickWinnerPage, containerTimesRace };

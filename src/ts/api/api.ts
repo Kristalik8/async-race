@@ -73,7 +73,7 @@ const getAllWinners = async (): Promise<IWinner[]> => {
   return res.json();
 };
 
-const getWinnersOnPage = async (
+const getCurrentWinners = async (
   page: number,
   sort?: string,
   order?: string
@@ -130,6 +130,6 @@ export {
   createWinner,
   updateWinner,
   deleteWinner,
-  getWinnersOnPage,
+  getCurrentWinners,
   getAllWinners,
 };
