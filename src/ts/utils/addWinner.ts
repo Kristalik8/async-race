@@ -1,5 +1,5 @@
 import { createWinner, getAllWinners, updateWinner } from '../api/api';
-import { containerTimesRace } from '../utils/counting';
+import { containerTimesRace } from './counting';
 
 export async function addWinner(id: number, roadElement: Element) {
   const timeWin = containerTimesRace[id];

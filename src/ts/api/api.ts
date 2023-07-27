@@ -58,8 +58,7 @@ const velocityCar = async (id: number): Promise<number> => {
   return velocity;
 };
 
-const getStopCar = async (id: number) =>
-    (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
+const getStopCar = async (id: number) => (await fetch(`${engine}?id=${id}&status=stopped`, { method: 'PATCH' })).json();
 
 const brokeEngine = async (id: number): Promise<boolean> => {
   const res = await fetch(`${engine}?id=${id}&status=drive`, { method: 'PATCH' }).catch();
@@ -115,7 +114,17 @@ const deleteWinner = async (id: number) =>
     })
   ).json();
 
-export const getWinner = async (id: number): Promise<IWinner> => (await fetch(`${winners}/${id}`)).json();
+const checkExistWinner = async (id: number) => {
+  const res = await fetch(`${winners}`);
+  const winnersArr = await res.json();
+  let foundId = false;
+  winnersArr.forEach((item: IWinner) => {
+    if (id === item.id) {
+      foundId = true;
+    }
+  });
+  return foundId;
+};
 
 export {
   getCurrentGarage,
@@ -132,4 +141,5 @@ export {
   deleteWinner,
   getCurrentWinners,
   getAllWinners,
+  checkExistWinner,
 };

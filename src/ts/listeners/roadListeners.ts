@@ -1,4 +1,4 @@
-import { deleteCar, deleteWinner, getWinner } from '../api/api';
+import { deleteCar, deleteWinner, checkExistWinner } from '../api/api';
 import { index, carsCount } from '../utils/counting';
 import { startCar, stopCar } from '../stateMotion/stateDrive';
 import { fillCurrentPage } from '../view/fillGarage';
@@ -21,7 +21,8 @@ document.querySelector('.garage').addEventListener('click', async (e) => {
   }
   if (targetElem.closest('.btn-remove')) {
     await deleteCar(idValue);
-    if (await getWinner(idValue)) {
+
+    if (await checkExistWinner(idValue)) {
       await deleteWinner(idValue);
     }
 
