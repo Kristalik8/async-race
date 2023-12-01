@@ -1,0 +1,62 @@
+.garage, .garage-wrap {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.garage li {
+  list-style-type: none;
+  border-bottom: 3px dashed white;
+  margin-bottom: 5px;
+}
+
+.garage__title {
+  margin: 50px 0 0;
+}
+
+.garage__page {
+  margin: 20px 0;
+}
+
+ul {
+  padding: 0;
+}
+
+.control-panel {
+  margin: 5px 0;
+  display: flex;
+  gap: 5px;
+}
+
+.road {
+  position: relative;
+}
+
+.car__name {
+  color: rgba(0, 255, 20, 0.9);
+  font-weight: 700;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.car-icon {
+  width: 80px;
+}
+
+.flag {
+  position: absolute;
+  right: 100px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  background-image: url("../../assets/svg/flag.svg");
+  background-size: 100% 100%;
+  transform: scale(2);
+}
+
+.message-broke {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,12 @@
+import './view/fillPage';
+import '../index.scss';
+import './utils/dataCars';
+import './api/api';
+import './utils/carSVG';
+import './view/createRoad';
+import './view/fillGarage';
+import './utils/generateCars';
+import './listeners/pageListeners';
+import './listeners/roadListeners';
+import './listeners/winnersListeners';
+import './view/fillWinners';

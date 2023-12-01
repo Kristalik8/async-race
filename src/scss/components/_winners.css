@@ -1,0 +1,31 @@
+table {
+  max-width: 900px;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+thead {
+  background-color: rgba(212, 3, 3, 0.24);
+}
+
+th {
+  padding: 10px 20px;
+}
+
+.table-wins, .table-time {
+  cursor: pointer;
+}
+
+td {
+  font-size: 15px;
+  text-align: center;
+  padding: 5px 20px;
+}
+
+tbody {
+  border-collapse: collapse;
+}
+
+.car {
+  width: 80px
+}
